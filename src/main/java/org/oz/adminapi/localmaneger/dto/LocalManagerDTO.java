@@ -1,7 +1,5 @@
 package org.oz.adminapi.localmaneger.dto;
-
 import lombok.*;
-import org.oz.adminapi.area.domain.AreaCode;
 
 @Getter
 @Builder
