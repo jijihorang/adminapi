@@ -4,6 +4,7 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPQLQuery;
 import org.oz.adminapi.common.dto.PageRequestDTO;
 import org.oz.adminapi.common.dto.PageResponseDTO;
+import org.oz.adminapi.localmaneger.domain.QLocalManager;
 import org.oz.adminapi.store.domain.QStore;
 import org.oz.adminapi.store.domain.Store;
 import org.oz.adminapi.store.dto.StoreDTO;
@@ -22,14 +23,14 @@ public class StoreSearchImpl extends QuerydslRepositorySupport implements StoreS
     public PageResponseDTO<StoreDTO> list(PageRequestDTO pageRequestDTO) {
 
         Pageable pageable = PageRequest.of(
-                pageRequestDTO.getPage()-1,
+                pageRequestDTO.getPage() - 1,
                 pageRequestDTO.getSize(),
                 Sort.by("storeNo").descending());
 
         QStore store = QStore.store;
+        QLocalManager localManager = QLocalManager.localManager;
 
-        JPQLQuery<Store> query = from(store);
-        query.groupBy(store);
+        JPQLQuery<Store> query = from(store).leftJoin(localManager).on(store.localManager.eq(localManager));
 
         this.getQuerydsl().applyPagination(pageable, query);
 
@@ -37,12 +38,16 @@ public class StoreSearchImpl extends QuerydslRepositorySupport implements StoreS
                 Projections.bean(StoreDTO.class,
                         store.storeNo,
                         store.storeName,
-                        store.storeContact
+                        store.storeContact,
+                        store.areaName,
+                        store.storeLatitude,
+                        store.storeLongitude,
+                        store.isRentAvailable,
+                        localManager.as("localManager")
                 )
         );
 
         java.util.List<StoreDTO> dtoList = dtoQuery.fetch();
-
         long total = dtoQuery.fetchCount();
 
         return PageResponseDTO.<StoreDTO>withAll()

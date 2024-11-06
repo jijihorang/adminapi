@@ -19,6 +19,7 @@ public class Store {
     private Long storeNo;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "local_manager_no")
     private LocalManager localManager;
 
     private String areaName;

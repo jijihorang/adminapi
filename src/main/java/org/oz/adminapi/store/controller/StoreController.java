@@ -3,7 +3,6 @@ package org.oz.adminapi.store.controller;
 import lombok.RequiredArgsConstructor;
 import org.oz.adminapi.common.dto.PageRequestDTO;
 import org.oz.adminapi.common.dto.PageResponseDTO;
-import org.oz.adminapi.store.domain.Store;
 import org.oz.adminapi.store.dto.StoreDTO;
 import org.oz.adminapi.store.service.StoreService;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +21,8 @@ public class StoreController {
     }
 
     @GetMapping("/{storeNo}")
-    public ResponseEntity<Store> getStoreDetail(@PathVariable Long storeNo) {
-        Store storeDTO = storeService.getStoreDetail(storeNo);
+    public ResponseEntity<StoreDTO> getStoreDetail(@PathVariable Long storeNo) {
+        StoreDTO storeDTO = storeService.getStoreDetail(storeNo);
         return ResponseEntity.ok(storeDTO);
     }
 }
