@@ -16,6 +16,7 @@ import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 
 @Log4j2
 public class MakerSearchImpl extends QuerydslRepositorySupport implements MakerSearch {
+    private static final Logger log = LoggerFactory.getLogger(MakerSearchImpl.class);
 
     public MakerSearchImpl() {super(MakerEntity.class);}
 

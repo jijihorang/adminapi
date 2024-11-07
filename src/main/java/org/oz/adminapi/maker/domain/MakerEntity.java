@@ -2,7 +2,8 @@ package org.oz.adminapi.maker.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.oz.adminapi.common.domain.BaseEntity;
+import org.oz.adminapi.common.domain.AttachFile;
+import org.oz.adminapi.common.domain.BasicEntity;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,12 +11,12 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@Builder(toBuilder = true)
 @Getter
 @ToString(exclude = {"attachFiles"}, callSuper = true)
 @Table(name = "admin_maker")
 // 제작자 Table
-public class MakerEntity extends BaseEntity {
+public class MakerEntity extends BasicEntity {
 
     @Id
     //제작자 사업자 번호 (PK)
@@ -50,4 +51,26 @@ public class MakerEntity extends BaseEntity {
     public void clearFiles(){
         attachFiles.clear();
     }
+
+
+    public MakerEntity update(String name, String email, String phone, String postnum, String addr, String addrDetail) {
+        return MakerEntity.builder()
+                .makerBizNo(this.makerBizNo) // 기존 ID 유지
+                .makerName(name != null ? name : this.makerName)
+                .makerEmail(email != null ? email : this.makerEmail)
+                .makerPhone(phone != null ? phone : this.makerPhone)
+                .makerPostnum(postnum != null ? postnum : this.makerPostnum)
+                .makerAddr(addr != null ? addr : this.makerAddr)
+                .makerAddrDetail(addrDetail != null ? addrDetail : this.makerAddrDetail)
+                .makerStatus(this.makerStatus)
+                .attachFiles(this.attachFiles) // 파일 목록 유지
+                .build();
+    }
+
+    // 파일 목록을 교체하는 메서드
+    public void updateAttachFiles(java.util.List<String> newFileNames) {
+        this.attachFiles.clear();
+        newFileNames.forEach(name -> attachFiles.add(new AttachFile(attachFiles.size(), name)));
+    }
+
 }

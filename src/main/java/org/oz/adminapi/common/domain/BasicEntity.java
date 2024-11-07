@@ -14,20 +14,20 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @ToString
-public abstract class BaseEntity {
+public abstract class BasicEntity {
 
-    // 삭제 여부
     private Boolean delFlag = false;
 
-    // 생성 날짜
+    // Soft Delete Boolean 값 변경
+    public Boolean changeDelFlag(){
+        return !delFlag;
+    }
+
     @CreatedDate
     private LocalDateTime createDate;
 
-    // 수정 날짜
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
 
-    // 생성자
     private String creatorName;
-
 }
