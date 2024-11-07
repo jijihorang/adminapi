@@ -14,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Getter
-@ToString(exclude = {"attachFiles"},callSuper = true)
+@ToString(exclude = {"attachFiles"}, callSuper = true)
 @Table(name = "admin_maker")
 // 제작자 Table
 public class MakerEntity extends BasicEntity {
@@ -59,4 +59,5 @@ public class MakerEntity extends BasicEntity {
     public void changePhone(String newPhone){
         this.makerPhone = newPhone;
     }
+    public void changeStatus(int newStatus){ this.makerStatus = newStatus; }
 }

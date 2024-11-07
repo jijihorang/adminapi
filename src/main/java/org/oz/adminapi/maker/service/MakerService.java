@@ -1,14 +1,14 @@
 package org.oz.adminapi.maker.service;
 
-import com.querydsl.jpa.JPQLQuery;
 import lombok.RequiredArgsConstructor;
+import org.oz.adminapi.common.dto.PageRequestDTO;
+import org.oz.adminapi.common.dto.PageResponseDTO;
+import org.oz.adminapi.maker.dto.MakerListDTO;
 import lombok.extern.log4j.Log4j2;
 import org.oz.adminapi.maker.domain.MakerEntity;
 import org.oz.adminapi.maker.dto.MakerModifyDTO;
 import org.oz.adminapi.maker.dto.MakerReadDTO;
 import org.oz.adminapi.maker.repository.MakerRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +22,10 @@ import java.util.Optional;
 public class MakerService {
 
     private final MakerRepository makerRepository;
+
+    public PageResponseDTO<MakerListDTO> getList(PageRequestDTO pageRequestDTO) {
+        return makerRepository.makerlist(pageRequestDTO);
+    }
 
     public MakerReadDTO readMaker(String makerBizNo) {
 
@@ -63,6 +67,7 @@ public class MakerService {
         updateMakerEntity.changeName(modifyDTO.getMakerName());
         updateMakerEntity.changeEmail(modifyDTO.getMakerEmail());
         updateMakerEntity.changePhone(modifyDTO.getMakerPhone());
+        updateMakerEntity.changeStatus(modifyDTO.getMakerStatus());
 
         return updateMakerEntity.getMakerBizNo();
     }
