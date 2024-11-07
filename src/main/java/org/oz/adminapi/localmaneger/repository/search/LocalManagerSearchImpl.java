@@ -41,12 +41,13 @@ public class LocalManagerSearchImpl extends QuerydslRepositorySupport implements
 
         JPQLQuery<LocalManagerDTO> dtoJPQLQuery = query
                 .leftJoin(areaCode).on(localManager.areaCode.eq(areaCode))
-                .select(Projections.fields(LocalManagerDTO.class,
+                .select(Projections.bean(LocalManagerDTO.class,
                         localManager.managerNo,
                         areaCode.areaName.as("areaName"),
                         localManager.managerName,
                         localManager.managerContact
                 ));
+
 
         // DTO 리스트 가져오기
         java.util.List<LocalManagerDTO> dtoList = dtoJPQLQuery.fetch();

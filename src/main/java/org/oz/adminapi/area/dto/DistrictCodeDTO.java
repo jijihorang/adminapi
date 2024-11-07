@@ -1,16 +1,10 @@
 package org.oz.adminapi.area.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class DistrictCodeDTO {
     private Long districtId;
     private String areaName; // 외래키로 사용

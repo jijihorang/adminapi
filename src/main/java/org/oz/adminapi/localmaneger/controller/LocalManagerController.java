@@ -6,7 +6,6 @@ import org.oz.adminapi.common.dto.PageRequestDTO;
 import org.oz.adminapi.common.dto.PageResponseDTO;
 import org.oz.adminapi.localmaneger.dto.LocalManagerDTO;
 import org.oz.adminapi.localmaneger.service.LocalManagerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

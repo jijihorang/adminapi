@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "tbl_areacode")
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
