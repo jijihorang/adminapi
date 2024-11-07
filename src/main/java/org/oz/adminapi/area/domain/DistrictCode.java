@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "tbl_districtcode")
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -19,9 +18,6 @@ public class DistrictCode {
     private Long districtNo;
 
     private String districtName;
-
-    @Column(name = "area_name", insertable = false, updatable = false)
-    private String areaName;
 
     @Builder.Default
     private Boolean delFlag = Boolean.FALSE;
