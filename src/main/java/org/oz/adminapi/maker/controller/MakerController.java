@@ -21,10 +21,10 @@ public class MakerController {
         return makerService.readMaker(makerBizNo);
     }
 
-    @PutMapping("/{makerBizId}")
+    @PutMapping("/{makerBizNo}")
     public ResponseEntity<MakerEntity> updateMaker(
-            @PathVariable String makerBizId,
+            @PathVariable String makerBizNo,
             @RequestBody MakerModifyDTO updateDTO) {
-        return makerService.modifyMaker(makerBizId, updateDTO);
+        return makerService.modifyMaker(makerBizNo, updateDTO);
     }
 }
