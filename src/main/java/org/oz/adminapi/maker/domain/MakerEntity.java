@@ -1,7 +1,8 @@
-package org.oz.adminapi.producer.domain;
+package org.oz.adminapi.maker.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.oz.adminapi.common.domain.BaseEntity;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,30 +12,41 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Getter
-@ToString(exclude = {"attachFiles"})
+@ToString(exclude = {"attachFiles"}, callSuper = true)
 @Table(name = "admin_maker")
-public class MakerEntity {
-    @Id
-    private Long makerBizNo;
+// 제작자 Table
+public class MakerEntity extends BaseEntity {
 
+    @Id
+    //제작자 사업자 번호 (PK)
+    private String makerBizNo;
+
+    //제작자 정보 부분
     private String makerName;
     private String makerEmail;
     private String makerPhone;
 
+    //제작자 주소 부분
     private String makerPostnum;
     private String makerAddr;
     private String makerAddrDetail;
 
-    private String makerStatus;
+    //제작자 승인 상태
+    private int makerStatus;
 
     @ElementCollection
     @Builder.Default
-    @CollectionTable(name = "maker_file")
+    @CollectionTable(
+            name = "admin_maker_file", // 컬렉션 테이블 이름
+            joinColumns = @JoinColumn(name = "maker_biz_no") // FK 컬럼 이름 설정
+    )
+    //제작자 포트폴리오 파일
     private Set<AttachFile> attachFiles = new HashSet<>();
 
     public void addFile(String filename){
         attachFiles.add(new AttachFile(attachFiles.size(), filename));
     }
+
     public void clearFiles(){
         attachFiles.clear();
     }

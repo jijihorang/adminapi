@@ -1,4 +1,4 @@
-package org.oz.adminapi.producer.domain;
+package org.oz.adminapi.maker.domain;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
