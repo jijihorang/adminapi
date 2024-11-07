@@ -18,13 +18,12 @@ public class MakerController {
 
     @GetMapping("/read/{makerBizNo}")
     public ResponseEntity<MakerReadDTO> getOne(@PathVariable(name = "makerBizNo")String makerBizNo){
-        return makerService.readMaker(makerBizNo);
+        return ResponseEntity.ok(makerService.readMaker(makerBizNo));
     }
 
-    @PutMapping("/{makerBizNo}")
-    public ResponseEntity<MakerEntity> updateMaker(
-            @PathVariable String makerBizNo,
+    @PutMapping("/modify")
+    public ResponseEntity<String> updateMaker(
             @RequestBody MakerModifyDTO updateDTO) {
-        return makerService.modifyMaker(makerBizNo, updateDTO);
+        return ResponseEntity.ok(makerService.modifyMaker(updateDTO));
     }
 }

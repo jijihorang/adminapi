@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.oz.adminapi.common.domain.AttachFile;
 import org.oz.adminapi.common.domain.BasicEntity;
+import org.oz.adminapi.maker.dto.MakerModifyDTO;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,7 +12,7 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder(toBuilder = true)
+@Builder
 @Getter
 @ToString(exclude = {"attachFiles"},callSuper = true)
 @Table(name = "admin_maker")
@@ -44,33 +45,18 @@ public class MakerEntity extends BasicEntity {
     //제작자 포트폴리오 파일
     private Set<AttachFile> attachFiles = new HashSet<>();
 
-    public void addFile(String filename){
-        attachFiles.add(new AttachFile(attachFiles.size(), filename));
-    }
-
-    public void clearFiles(){
-        attachFiles.clear();
-    }
-
-
-    public MakerEntity update(String name, String email, String phone, String postnum, String addr, String addrDetail) {
-        return MakerEntity.builder()
-                .makerBizNo(this.makerBizNo) // 기존 ID 유지
-                .makerName(name != null ? name : this.makerName)
-                .makerEmail(email != null ? email : this.makerEmail)
-                .makerPhone(phone != null ? phone : this.makerPhone)
-                .makerPostnum(postnum != null ? postnum : this.makerPostnum)
-                .makerAddr(addr != null ? addr : this.makerAddr)
-                .makerAddrDetail(addrDetail != null ? addrDetail : this.makerAddrDetail)
-                .makerStatus(this.makerStatus)
-                .attachFiles(this.attachFiles) // 파일 목록 유지
-                .build();
-    }
-
-    // 파일 목록을 교체하는 메서드
     public void updateAttachFiles(java.util.List<String> newFileNames) {
         this.attachFiles.clear();
         newFileNames.forEach(name -> attachFiles.add(new AttachFile(attachFiles.size(), name)));
     }
 
+    public void changeName(String newName){
+        this.makerName = newName;
+    }
+    public void changeEmail(String newEmail){
+        this.makerEmail = newEmail;
+    }
+    public void changePhone(String newPhone){
+        this.makerPhone = newPhone;
+    }
 }
