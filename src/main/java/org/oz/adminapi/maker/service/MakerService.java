@@ -23,7 +23,7 @@ public class MakerService {
 
     private final MakerRepository makerRepository;
 
-    public ResponseEntity<MakerReadDTO> readMaker(String makerBizNo) {
+    public MakerReadDTO readMaker(String makerBizNo) {
 
         Optional<MakerEntity> result = makerRepository.findWithFilesByMakerBizNo(makerBizNo);
 
@@ -48,32 +48,22 @@ public class MakerService {
                 .creatorName(makerEntity.getCreatorName())
                 .build();
 
-        return ResponseEntity.ok(makerReadDTO);
+        return makerReadDTO;
     }
 
-    public ResponseEntity<MakerEntity> modifyMaker(String makerBizId, MakerModifyDTO modifyDTO) {
+    public String modifyMaker(MakerModifyDTO modifyDTO) {
         log.info("updateMaker---------------------------------------------");
 
-        Optional<MakerEntity> optionalMakerEntity = makerRepository.findWithFilesByMakerBizNo(makerBizId);
+        Optional<MakerEntity> optionalMakerEntity = makerRepository.findWithFilesByMakerBizNo(modifyDTO.getMakerBizNo());
         if (optionalMakerEntity.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            throw new RuntimeException("ㄴㄴㄴㄴㄴㄴㄴ");
         }
 
-        MakerEntity makerEntity = optionalMakerEntity.get();
+        MakerEntity updateMakerEntity = optionalMakerEntity.get();
+        updateMakerEntity.changeName(modifyDTO.getMakerName());
+        updateMakerEntity.changeEmail(modifyDTO.getMakerEmail());
+        updateMakerEntity.changePhone(modifyDTO.getMakerPhone());
 
-        // 일반 필드 업데이트
-        MakerEntity updatedEntity = makerEntity.update(
-                modifyDTO.getMakerName(),
-                modifyDTO.getMakerEmail(),
-                modifyDTO.getMakerPhone(),
-                modifyDTO.getMakerPostnum(),
-                modifyDTO.getMakerAddr(),
-                modifyDTO.getMakerAddrDetail()
-        );
-
-        // attachFiles 업데이트
-        updatedEntity.updateAttachFiles(modifyDTO.getAttachFileNames());
-
-        return ResponseEntity.ok(updatedEntity); // 더티 체킹에 의해 변경 사항이 자동 반영됨
+        return updateMakerEntity.getMakerBizNo();
     }
 }

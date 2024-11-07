@@ -61,39 +61,19 @@ public class MakerTests {
 
         log.info("updateMaker---------------------------------------------");
 
-        String makerBizNo = "123-45-67890";
-        List<String> files = new ArrayList<>();
-        files.add("1111.jpg");
-        files.add("2222.jpg");
-        files.add("3333.jpg");
         MakerModifyDTO modifyDTO = MakerModifyDTO.builder()
+                .makerBizNo("123-45-67890")
                 .makerName("Kim1")
-                .attachFileNames(files)
+                .makerEmail("kim1@gmail.com")
+                .makerPhone("010-4567-8901")
                 .build();
 
-        Optional<MakerEntity> optionalMakerEntity = makerRepository.findWithFilesByMakerBizNo(makerBizNo);
+        Optional<MakerEntity> optionalMakerEntity = makerRepository.findWithFilesByMakerBizNo(modifyDTO.getMakerBizNo());
 
-
-        MakerEntity makerEntity = optionalMakerEntity.get();
-
-        // 일반 필드 업데이트
-        MakerEntity updatedEntity = makerEntity.update(
-                modifyDTO.getMakerName(),
-                modifyDTO.getMakerEmail(),
-                modifyDTO.getMakerPhone(),
-                modifyDTO.getMakerPostnum(),
-                modifyDTO.getMakerAddr(),
-                modifyDTO.getMakerAddrDetail()
-        );
-
-        updatedEntity.changeDelFlag();
-
-        // attachFiles 업데이트
-        updatedEntity.updateAttachFiles(modifyDTO.getAttachFileNames());
-
-        log.info(updatedEntity.toString());
-
-        makerRepository.save(updatedEntity);
+        MakerEntity updateMakerEntity = optionalMakerEntity.get();
+        updateMakerEntity.changeName(modifyDTO.getMakerName());
+        updateMakerEntity.changeEmail(modifyDTO.getMakerEmail());
+        updateMakerEntity.changePhone(modifyDTO.getMakerPhone());
     }
 
 
