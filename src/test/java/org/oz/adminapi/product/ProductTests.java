@@ -7,6 +7,7 @@ import org.oz.adminapi.maker.repository.MakerRepository;
 import org.oz.adminapi.product.domain.CategoryEntity;
 import org.oz.adminapi.product.domain.ProductCategoryEntity;
 import org.oz.adminapi.product.domain.ProductEntity;
+import org.oz.adminapi.product.dto.ProductReadDTO;
 import org.oz.adminapi.product.repository.CategoryRepository;
 import org.oz.adminapi.product.repository.ProductCategoryRepository;
 import org.oz.adminapi.product.repository.ProductRepository;
@@ -15,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -134,5 +136,31 @@ public class ProductTests {
                 }
             }
         }
+    }
+
+    @Test
+    @Transactional
+    @Commit
+    public void readProduct() {
+//        Long productNo = 2L;
+//        Optional<ProductEntity> result = productRepository.findWithFilesByProductNo(productNo);
+//        ProductEntity entity = result.get();
+//
+//        List<String> attachFileNames = entity.getAttachFiles().stream()
+//                .map(file -> file.getFileName())
+//                .toList();
+//
+//        ProductReadDTO productReadDTO = ProductReadDTO.builder()
+//                .productNo(productNo)
+//                .productName(entity.getProductName())
+//                .productDescription(entity.getProductDescription())
+//                .productStatus(entity.getProductStatus())
+//                .attachFileNames(attachFileNames)
+//                .makerName(entity.getMaker().getMakerName())
+//                .createDate(entity.getCreateDate())
+//                .lastModifiedDate(entity.getLastModifiedDate())
+//                .build();
+//
+//        log.info(productReadDTO.toString());
     }
 }

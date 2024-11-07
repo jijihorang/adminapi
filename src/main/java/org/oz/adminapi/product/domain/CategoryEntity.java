@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.oz.adminapi.common.domain.BasicEntity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor

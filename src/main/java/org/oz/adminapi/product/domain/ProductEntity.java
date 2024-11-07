@@ -14,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Getter
-@ToString(exclude = {"maker"}, callSuper = true)
+@ToString(exclude = {"maker","attachFiles"}, callSuper = true)
 @Table(name = "admin_product")
 public class ProductEntity extends BasicEntity {
 
@@ -48,5 +48,9 @@ public class ProductEntity extends BasicEntity {
 
     public void clearFiles(){
         attachFiles.clear();
+    }
+
+    public void changeStatus(int newStatus){
+        this.productStatus = newStatus;
     }
 }
