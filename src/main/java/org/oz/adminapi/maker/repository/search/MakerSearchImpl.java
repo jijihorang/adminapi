@@ -1,7 +1,6 @@
 package org.oz.adminapi.maker.repository.search;
 
 import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPQLQuery;
 import lombok.extern.log4j.Log4j2;
 import org.oz.adminapi.common.dto.PageRequestDTO;
@@ -16,7 +15,7 @@ import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 
 @Log4j2
 public class MakerSearchImpl extends QuerydslRepositorySupport implements MakerSearch {
-    private static final Logger log = LoggerFactory.getLogger(MakerSearchImpl.class);
+    // private static final Logger log = LoggerFactory.getLogger(MakerSearchImpl.class);
 
     public MakerSearchImpl() {super(MakerEntity.class);}
 
