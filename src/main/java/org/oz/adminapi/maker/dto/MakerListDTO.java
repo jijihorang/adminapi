@@ -5,16 +5,20 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class MakerModifyDTO {
+@NoArgsConstructor
+public class MakerListDTO {
+
     private String makerBizNo;
 
-    //제작자 정보 부분
     private String makerName;
-    private String makerEmail;
-    private String makerPhone;
+
+    private int makerStatus;
+
+    private LocalDateTime lastModifiedDate;
 
 }
