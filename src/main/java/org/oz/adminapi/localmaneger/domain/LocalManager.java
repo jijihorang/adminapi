@@ -8,10 +8,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "admin_local_manager")
-@Getter
-@Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class LocalManager {
     @Id

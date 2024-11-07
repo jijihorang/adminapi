@@ -1,6 +1,5 @@
 package org.oz.adminapi.area.service;
 
-import org.oz.adminapi.area.dto.AreaCodeDTO;
 import org.oz.adminapi.area.repository.AreaCodeRepository;
 import org.springframework.stereotype.Service;
 
