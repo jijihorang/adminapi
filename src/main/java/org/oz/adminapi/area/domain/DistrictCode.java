@@ -17,16 +17,14 @@ public class DistrictCode {
     @Column(name = "district_no")
     private Long districtNo;
 
-    private String districtName;
-
-    @Builder.Default
-    private Boolean delFlag = Boolean.FALSE;
-
-    private LocalDateTime regDate;
-    private LocalDateTime modDate;
-    private String creator;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "area_name", referencedColumnName = "area_name")
     private AreaCode areaCode;
+
+    private String districtName;
+    @Builder.Default
+    private Boolean delFlag = Boolean.FALSE;
+    private LocalDateTime regDate;
+    private LocalDateTime modDate;
+    private String creator;
 }
