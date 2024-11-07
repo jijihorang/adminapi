@@ -2,11 +2,10 @@ package org.oz.adminapi.event.dto;
 
 import lombok.*;
 
-@Getter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
 public class EventHistoryDTO {
     private Integer eventStatus;
     private Boolean makerSpaceRent;

@@ -5,6 +5,6 @@ import org.oz.adminapi.common.dto.PageResponseDTO;
 import org.oz.adminapi.event.dto.EventDTO;
 
 public interface EventSearch {
-    PageResponseDTO<EventDTO> list(PageRequestDTO pageRequestDTO);
+    PageResponseDTO<EventDTO> getList(PageRequestDTO pageRequestDTO);
 
 }

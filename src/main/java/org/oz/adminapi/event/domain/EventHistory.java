@@ -10,9 +10,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class EventHistory {
 
-    @Column(name = "event_no")
-    private Long eventNo;
-
     @Column(name = "event_status")
     private Integer eventStatus;
 

@@ -3,6 +3,7 @@ package org.oz.adminapi.store.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import org.oz.adminapi.localmaneger.domain.LocalManager;
+import org.oz.adminapi.area.domain.AreaCode;
 
 import java.time.LocalDateTime;
 
@@ -10,19 +11,22 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
 @ToString
+@Table(name = "admin_store")
 public class Store {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "store_no")
     private Long storeNo;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "local_manager_no")
     private LocalManager localManager;
 
-    private String areaName;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "area_name", referencedColumnName = "area_name")
+    private AreaCode areaCode;
 
     private String storeName;
 

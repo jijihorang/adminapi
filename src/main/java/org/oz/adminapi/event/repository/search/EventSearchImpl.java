@@ -5,6 +5,7 @@ import com.querydsl.jpa.JPQLQuery;
 import org.oz.adminapi.common.dto.PageRequestDTO;
 import org.oz.adminapi.common.dto.PageResponseDTO;
 import org.oz.adminapi.event.domain.Event;
+
 import org.oz.adminapi.event.domain.QEvent;
 import org.oz.adminapi.event.domain.QEventHistory;
 import org.oz.adminapi.event.dto.EventDTO;
@@ -15,14 +16,16 @@ import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 
 import static org.hibernate.query.sqm.tree.SqmNode.log;
 
+
 public class EventSearchImpl extends QuerydslRepositorySupport implements EventSearch {
 
     public EventSearchImpl() {
         super(Event.class);
     }
 
+
     @Override
-    public PageResponseDTO<EventDTO> list(PageRequestDTO pageRequestDTO) {
+    public PageResponseDTO<EventDTO> getList(PageRequestDTO pageRequestDTO) {
 
         Pageable pageable = PageRequest.of(
                 pageRequestDTO.getPage()-1,
@@ -40,10 +43,8 @@ public class EventSearchImpl extends QuerydslRepositorySupport implements EventS
         this.getQuerydsl().applyPagination(pageable, query);
 
         JPQLQuery<EventDTO> dtoJPQLQuery = query
-                .leftJoin(eventHistory).on(event.eventNo.eq(event.eventNo))
                 .select(Projections.fields(EventDTO.class,
                         event.makerBizNo,
-                        event.storeNo,
                         event.eventStart,
                         event.eventEnd,
                         event.eventStatus,

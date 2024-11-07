@@ -2,9 +2,10 @@ package org.oz.adminapi.event.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.time.LocalDateTime;
+import org.oz.adminapi.store.domain.Store;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,8 +24,10 @@ public class Event {
     @Column(name = "maker_biz_no", nullable = false)
     private String makerBizNo;
 
-    @Column(name = "store_no", nullable = false)
-    private Long storeNo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="store_no",referencedColumnName = "store_no")
+    private Store store;
 
     @Column(name = "event_start")
     private LocalDateTime eventStart;
