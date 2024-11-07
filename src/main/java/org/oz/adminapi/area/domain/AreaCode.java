@@ -18,7 +18,6 @@ public class AreaCode {
 
     @Builder.Default
     private Boolean delFlag = Boolean.FALSE;
-
     private LocalDateTime regDate;
     private LocalDateTime modDate;
     private String creator;
