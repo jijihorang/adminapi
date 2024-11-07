@@ -17,4 +17,5 @@ public class MakerModifyDTO {
     private String makerEmail;
     private String makerPhone;
 
+    private int makerStatus;
 }

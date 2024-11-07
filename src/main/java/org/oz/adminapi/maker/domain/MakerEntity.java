@@ -59,4 +59,5 @@ public class MakerEntity extends BasicEntity {
     public void changePhone(String newPhone){
         this.makerPhone = newPhone;
     }
+    public void changeStatus(int newStatus){ this.makerStatus = newStatus; }
 }

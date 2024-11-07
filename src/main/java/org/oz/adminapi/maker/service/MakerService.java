@@ -67,6 +67,7 @@ public class MakerService {
         updateMakerEntity.changeName(modifyDTO.getMakerName());
         updateMakerEntity.changeEmail(modifyDTO.getMakerEmail());
         updateMakerEntity.changePhone(modifyDTO.getMakerPhone());
+        updateMakerEntity.changeStatus(modifyDTO.getMakerStatus());
 
         return updateMakerEntity.getMakerBizNo();
     }

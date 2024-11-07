@@ -19,8 +19,8 @@ public abstract class BasicEntity {
     private Boolean delFlag = false;
 
     // Soft Delete Boolean 값 변경
-    public Boolean changeDelFlag(){
-        return !delFlag;
+    public Boolean changeDelFlag(Boolean newDelFlag){
+        return this.delFlag = newDelFlag;
     }
 
     @CreatedDate
