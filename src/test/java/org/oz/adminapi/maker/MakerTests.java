@@ -27,7 +27,7 @@ public class MakerTests {
     @Test
     @Transactional
     @Commit
-    public void testDummies(){
+    public void testFileDummies(){
 
         List<String> attachFiles = new ArrayList<>();
         attachFiles.add("aaa.jpg");
@@ -44,9 +44,10 @@ public class MakerTests {
                     .makerPostnum("47240")
                     .makerAddr("addr" + i)
                     .makerAddrDetail("addr detail" + i)
+                    .makerStatus(BasicStatus.PENDING)
                     .build();
 
-            maker.updateAttachFiles(attachFiles);
+//            maker.updateAttachFiles(attachFiles);
             makerRepository.save(maker);
             log.info(maker.toString());
         }//end for
@@ -54,7 +55,7 @@ public class MakerTests {
     @Test
     @Transactional
     @Commit
-    public void testFileDummies(){
+    public void testDummies(){
 
         for (int i = 1; i <= 150; i++) {
             MakerEntity maker = MakerEntity.builder()
@@ -65,6 +66,7 @@ public class MakerTests {
                     .makerPostnum("47240")
                     .makerAddr("addr" + i)
                     .makerAddrDetail("addr detail" + i)
+                    .makerStatus(BasicStatus.PENDING)
                     .build();
             makerRepository.save(maker);
             log.info(maker.toString());
@@ -93,19 +95,14 @@ public class MakerTests {
                 .build();
 
         int Status = modifyDTO.getMakerStatus();
-        BasicStatus newStatus = BasicStatus.PENDING;
-        if (Status == 1) {
-            newStatus = BasicStatus.ACCEPTED;
-        }
-        if (Status == 2) {
-            newStatus = BasicStatus.REJECTED;
-        }
+
+        int newState = BasicStatus.PENDING.ordinal();
 
         log.info(modifyDTO);
         Optional<MakerEntity> optionalMakerEntity = makerRepository.findById(modifyDTO.getMakerBizNo());
 
         MakerEntity updateMakerEntity = optionalMakerEntity.get();
-        updateMakerEntity.changeStatus(newStatus);
+        updateMakerEntity.changeStatus(modifyDTO.getMakerStatus());
         log.info(updateMakerEntity);
 
     }
