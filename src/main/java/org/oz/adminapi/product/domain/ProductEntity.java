@@ -19,14 +19,19 @@ import java.util.Set;
 public class ProductEntity extends BasicEntity {
 
     @Id
+    @Column(name = "product_no")
     // 상품코드
     private Long productNo;
 
     // 상품 정보
+    @Column(name = "product_name")
     private String productName;
+
+    @Column(name = "product_description")
     private String productDescription;
 
     // 상품 승인 상태
+    @Column(name = "product_status")
     private int productStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
