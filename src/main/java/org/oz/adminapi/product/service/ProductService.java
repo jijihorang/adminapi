@@ -42,14 +42,15 @@ public class ProductService {
         // ProductEntity를 조회
         ProductEntity product = (ProductEntity) result.get(0)[0];
 
-        // ProductEntity를 가져옴
-//        List<CategoryEntity> categoryEntityList = result.stream().map(arr -> (CategoryEntity) arr[1]).collect(Collectors.toList());
+        // CategoryEntity를 조회
+        List<CategoryEntity> categoryEntityList = result.stream().map(arr -> (CategoryEntity) arr[1]).collect(Collectors.toList());
+
+        // 카테고리 번호 목록 생성
+        List<Long> categoriesNo = categoryEntityList.stream().map(arr -> arr.getCategoryNo()).collect(Collectors.toList());
 
         // 카테고리 이름 목록 생성
-        List<String> categories = result.stream()
-                .map(row -> (String) row[1])
-                .distinct()
-                .collect(Collectors.toList());
+        List<String> categoriesName = categoryEntityList.stream().map(arr -> arr.getCategoryName()).collect(Collectors.toList());
+
 
 //        // 파일 이름 목록 생성
          List<String> attachFileNames = product.getAttachFiles().stream()
@@ -57,62 +58,21 @@ public class ProductService {
                 .toList();
 
         // ProductReadDTO 생성
-        return ProductReadDTO.builder()
+        ProductReadDTO readDTO = ProductReadDTO.builder()
                 .productNo(product.getProductNo())
                 .productName(product.getProductName())
                 .productDescription(product.getProductDescription())
                 .productStatus(product.getProductStatus())
                 .makerName(product.getMaker().getMakerName())
-                .categories(categories)
+                .categoriesNo(categoriesNo)
+                .categoriesName(categoriesName)
                 .attachFileNames(attachFileNames)
                 .createDate(product.getCreateDate())
                 .lastModifiedDate(product.getLastModifiedDate())
                 .creatorName(product.getCreatorName())
                 .build();
+        return readDTO;
     }
-
-//    public ProductReadDTO readProduct(Long productNo) {
-//
-//        List<Object[]> result = productRepository.findWithFilesByProductNo(productNo);
-//
-//        if (result.isEmpty()) {
-//            throw new RuntimeException("ㄴㄴㄴㄴㄴㄴㄴ");
-//        }
-//
-//        for (Object[] row : result) {
-//            log.info("Row");
-//            for (int i = 0; i < row.length; i++) {
-//                log.info("column {} : {}",i, row);
-//            }
-//        }
-//
-//
-//
-////        ProductReadDTO readDTO = ProductReadDTO.builder()
-////                .productNo(productNo)
-////                .productName(result.get(0)[1])
-////                .build();
-//
-//
-//
-////        List<String> attachFileNames = entity.getAttachFiles().stream()
-////                .map(file -> file.getFileName())
-////                .toList();
-////
-////        ProductReadDTO productReadDTO = ProductReadDTO.builder()
-////                .productNo(productNo)
-////                .productName(entity.getProductName())
-////                .productDescription(entity.getProductDescription())
-////                .productStatus(entity.getProductStatus())
-////                .attachFileNames(attachFileNames)
-////                .makerName(entity.getMaker().getMakerName())
-////                .createDate(entity.getCreateDate())
-////                .lastModifiedDate(entity.getLastModifiedDate())
-////                .build();
-//
-////        return productReadDTO;
-//        return null;
-//    }
 
     public Long modifyProduct (ProductModifyDTO modifyDTO) {
 
