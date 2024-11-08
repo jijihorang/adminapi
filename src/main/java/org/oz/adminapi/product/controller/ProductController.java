@@ -28,7 +28,7 @@ public class ProductController {
 
     @GetMapping("/read/{productNo}")
     public ResponseEntity<ProductReadDTO> getOne(@PathVariable(name = "productNo")Long productNo){
-        return ResponseEntity.ok(productService.readProduct(productNo));
+        return ResponseEntity.ok(productService.getProductWithDetails(productNo));
     }
 
     @PutMapping("/modify")
