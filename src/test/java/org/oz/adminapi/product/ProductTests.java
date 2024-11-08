@@ -2,6 +2,7 @@ package org.oz.adminapi.product;
 
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
+import org.oz.adminapi.common.domain.BasicStatus;
 import org.oz.adminapi.maker.domain.MakerEntity;
 import org.oz.adminapi.maker.repository.MakerRepository;
 import org.oz.adminapi.product.domain.CategoryEntity;
@@ -16,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -50,7 +52,6 @@ public class ProductTests {
                     .makerPostnum("45"+i+"67")
                     .makerAddr("addr" + i)
                     .makerAddrDetail("addr detail" + i)
-                    .makerStatus(0)
                     .build();
             makerRepository.save(maker);
         }
@@ -70,9 +71,37 @@ public class ProductTests {
                         .productNo((long) i)
                         .productName("Product " + i)
                         .productDescription("Description for Product " + i)
-                        .productStatus(1)
                         .maker(maker.get())
+                        .productStatus(BasicStatus.PENDING)
                         .build();
+                productRepository.save(product);
+            }
+        }
+    }
+    @Test
+    @Transactional
+    @Commit
+    // 상품 파일 더미데이터
+    public void dummiesProductFiles() {
+        String makerBizNo = "123-45-67890";
+        Optional<MakerEntity> maker = makerRepository.findById(makerBizNo);
+
+        List<String> attachFiles = new ArrayList<>();
+        attachFiles.add("aaa.jpg");
+        attachFiles.add("vvv.jpg");
+        attachFiles.add("ccc.jpg");
+
+        if (maker.isPresent()) {
+            for (int i = 1; i <= 5; i++) {
+
+                ProductEntity product = ProductEntity.builder()
+                        .productNo((long) i)
+                        .productName("Product " + i)
+                        .productDescription("Description for Product " + i)
+                        .maker(maker.get())
+                        .productStatus(BasicStatus.PENDING)
+                        .build();
+                product.updateAttachFiles(attachFiles);
                 productRepository.save(product);
             }
         }
@@ -81,7 +110,7 @@ public class ProductTests {
     @Test
     @Transactional
     @Commit
-// 상품 한 개 당 카테고리 한 개
+    // 카테고리생성
     public void dummiesCategory() {
         for (int i = 1; i <= 20; i++) {
             CategoryEntity category = CategoryEntity.builder()
@@ -96,9 +125,9 @@ public class ProductTests {
     @Commit
     // 상품 한 개 당 카테고리 여러 개
     public void dummiesProductCategory() {
-        for (int i = 1; i <= 150; i++) {
+        for (int i = 1; i <= 10; i++) {
             Optional<ProductEntity> product = productRepository.findById((long) i);
-            Optional<CategoryEntity> category = categoryRepository.findById((long) ((i % 20) + 1));
+            Optional<CategoryEntity> category = categoryRepository.findById(3L);
 
             if (product.isPresent() && category.isPresent()) {
                 ProductCategoryEntity productCategory = ProductCategoryEntity.builder()
@@ -154,31 +183,5 @@ public class ProductTests {
         log.info("=====================================");
         log.info(product);
         log.info(categoryEntityList);
-    }
-
-    @Test
-    @Transactional
-    @Commit
-    public void readProduct() {
-//        Long productNo = 2L;
-//        Optional<ProductEntity> result = productRepository.findWithFilesByProductNo(productNo);
-//        ProductEntity entity = result.get();
-//
-//        List<String> attachFileNames = entity.getAttachFiles().stream()
-//                .map(file -> file.getFileName())
-//                .toList();
-//
-//        ProductReadDTO productReadDTO = ProductReadDTO.builder()
-//                .productNo(productNo)
-//                .productName(entity.getProductName())
-//                .productDescription(entity.getProductDescription())
-//                .productStatus(entity.getProductStatus())
-//                .attachFileNames(attachFileNames)
-//                .makerName(entity.getMaker().getMakerName())
-//                .createDate(entity.getCreateDate())
-//                .lastModifiedDate(entity.getLastModifiedDate())
-//                .build();
-//
-//        log.info(productReadDTO.toString());
     }
 }

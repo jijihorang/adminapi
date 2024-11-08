@@ -5,7 +5,6 @@ import lombok.extern.log4j.Log4j2;
 import org.oz.adminapi.common.dto.PageRequestDTO;
 import org.oz.adminapi.common.dto.PageResponseDTO;
 import org.oz.adminapi.maker.dto.MakerListDTO;
-import org.oz.adminapi.maker.domain.MakerEntity;
 import org.oz.adminapi.maker.dto.MakerModifyDTO;
 import org.oz.adminapi.maker.dto.MakerReadDTO;
 import org.oz.adminapi.maker.service.MakerService;

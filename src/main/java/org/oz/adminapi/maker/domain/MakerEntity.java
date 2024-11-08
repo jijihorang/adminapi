@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.oz.adminapi.common.domain.AttachFile;
 import org.oz.adminapi.common.domain.BasicEntity;
-import org.oz.adminapi.maker.dto.MakerModifyDTO;
+import org.oz.adminapi.common.domain.BasicStatus;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,21 +20,30 @@ import java.util.Set;
 public class MakerEntity extends BasicEntity {
 
     @Id
-    //제작자 사업자 번호 (PK)
+    @Column(name = "maker_biz_no", nullable = false)
     private String makerBizNo;
 
-    //제작자 정보 부분
+    //제작자 정보
+    @Column(name = "maker_name")
     private String makerName;
+    @Column(name = "maker_email")
     private String makerEmail;
+    @Column(name = "maker_phone")
     private String makerPhone;
 
     //제작자 주소 부분
+    @Column(name = "maker_postnum")
     private String makerPostnum;
+    @Column(name = "maker_addr")
     private String makerAddr;
+    @Column(name = "maker_addr_detail")
     private String makerAddrDetail;
 
     //제작자 승인 상태
-    private int makerStatus;
+    @Enumerated(EnumType.ORDINAL)
+    @Builder.Default
+    @Column(name = "maker_status", columnDefinition = "INT DEFAULT 0")
+    private BasicStatus makerStatus = BasicStatus.PENDING;
 
     @ElementCollection
     @Builder.Default
@@ -45,19 +54,23 @@ public class MakerEntity extends BasicEntity {
     //제작자 포트폴리오 파일
     private Set<AttachFile> attachFiles = new HashSet<>();
 
+    public void clearFiles(){
+        attachFiles.clear();
+    }
     public void updateAttachFiles(java.util.List<String> newFileNames) {
         this.attachFiles.clear();
         newFileNames.forEach(name -> attachFiles.add(new AttachFile(attachFiles.size(), name)));
     }
 
-    public void changeName(String newName){
-        this.makerName = newName;
+    public void changeStatus(int newStatus){
+        if(newStatus == 0){
+            this.makerStatus = BasicStatus.PENDING;
+        }
+        if(newStatus == 1){
+            this.makerStatus = BasicStatus.ACCEPTED;
+        }
+        if(newStatus == 0){
+            this.makerStatus = BasicStatus.REJECTED;
+        }
     }
-    public void changeEmail(String newEmail){
-        this.makerEmail = newEmail;
-    }
-    public void changePhone(String newPhone){
-        this.makerPhone = newPhone;
-    }
-    public void changeStatus(int newStatus){ this.makerStatus = newStatus; }
 }
