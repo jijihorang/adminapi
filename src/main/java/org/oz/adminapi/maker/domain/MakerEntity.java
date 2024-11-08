@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.oz.adminapi.common.domain.AttachFile;
 import org.oz.adminapi.common.domain.BasicEntity;
-import org.oz.adminapi.maker.dto.MakerModifyDTO;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,20 +19,27 @@ import java.util.Set;
 public class MakerEntity extends BasicEntity {
 
     @Id
-    //제작자 사업자 번호 (PK)
+    @Column(name = "maker_biz_no", nullable = false)
     private String makerBizNo;
 
     //제작자 정보 부분
+    @Column(name = "maker_name")
     private String makerName;
+    @Column(name = "maker_email")
     private String makerEmail;
+    @Column(name = "maker_phone")
     private String makerPhone;
 
     //제작자 주소 부분
+    @Column(name = "maker_postnum")
     private String makerPostnum;
+    @Column(name = "maker_addr")
     private String makerAddr;
+    @Column(name = "maker_addr_detail")
     private String makerAddrDetail;
 
     //제작자 승인 상태
+    @Column(name = "maker_status")
     private int makerStatus;
 
     @ElementCollection
