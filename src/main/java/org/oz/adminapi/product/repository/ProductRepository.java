@@ -17,7 +17,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long>, P
 
     @EntityGraph(attributePaths = {"attachFiles","maker"})
     @Query("""
-        SELECT p, c.categoryName FROM ProductEntity p
+        SELECT p, c FROM ProductEntity p
         LEFT JOIN ProductCategoryEntity pc ON p.productNo = pc.product.productNo
         LEFT JOIN CategoryEntity c ON pc.category.categoryNo = c.categoryNo
         WHERE p.productNo = :productNo

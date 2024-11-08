@@ -33,7 +33,9 @@ public class ProductReadDTO {
     // 제작자 이름
     private String makerName;
 
-    private List<String> categories;
+    //카테고리 번호, 이름
+    private List<Long> categoriesNo;
+    private List<String> categoriesName;
 
     //제작자 상품 이미지
     private List<String> attachFileNames;
