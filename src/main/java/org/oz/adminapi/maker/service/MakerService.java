@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -34,8 +35,7 @@ public class MakerService {
         MakerEntity makerEntity = result.get();
 
         List<String> attachFileNames = makerEntity.getAttachFiles().stream()
-                .map(file -> file.getFileName())
-                .toList();
+                .map(file -> file.getFileName()).collect(Collectors.toList());
 
         MakerReadDTO makerReadDTO = MakerReadDTO.builder()
                 .makerBizNo(makerEntity.getMakerBizNo())
