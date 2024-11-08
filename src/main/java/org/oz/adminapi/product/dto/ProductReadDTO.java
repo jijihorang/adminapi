@@ -7,18 +7,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.oz.adminapi.common.domain.AttachFile;
 import org.oz.adminapi.maker.domain.MakerEntity;
+import org.oz.adminapi.product.domain.ProductEntity;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class ProductReadDTO {
-
     private Long productNo;
 
     // 상품 정보
@@ -41,4 +43,5 @@ public class ProductReadDTO {
     private LocalDateTime lastModifiedDate;
 
     private String creatorName;
+
 }

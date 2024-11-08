@@ -18,6 +18,7 @@ public class CategoryEntity extends BasicEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="category_no", nullable = false)
     // 카테고리 id
     private Long categoryNo;
 

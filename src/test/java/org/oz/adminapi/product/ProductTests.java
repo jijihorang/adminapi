@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @SpringBootTest
 @Log4j2
@@ -110,6 +111,8 @@ public class ProductTests {
         }
     }
 
+
+
     @Test
     @Transactional
     @Commit
@@ -136,6 +139,21 @@ public class ProductTests {
                 }
             }
         }
+    }
+
+
+    @Test
+    public void testRead() {
+        Long productNo = 3L;
+        List<Object[]> result = productRepository.findWithFilesByProductNo(productNo);
+
+        ProductEntity product = (ProductEntity) result.get(0)[0];
+
+        List<CategoryEntity> categoryEntityList = result.stream().map(arr -> (CategoryEntity)arr[1]).collect(Collectors.toList());
+
+        log.info("=====================================");
+        log.info(product);
+        log.info(categoryEntityList);
     }
 
     @Test
