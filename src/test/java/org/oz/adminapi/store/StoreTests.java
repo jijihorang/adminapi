@@ -38,7 +38,7 @@ public class StoreTests {
 
             Store store = Store.builder()
                     .areaCode(areaCodeRepository.getReferenceById("Area1"))
-                    .localManager(localManagerRepository.getReferenceById(1L))
+                    .localManager(localManagerRepository.getReferenceById(2L))
                     .storeName("Store"+i)
                     .storeContact("Contact"+i)
                     .storeLatitude("Latitude"+i)

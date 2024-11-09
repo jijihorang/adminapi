@@ -60,27 +60,6 @@ public class ProductTests {
     @Test
     @Transactional
     @Commit
-    // 상품 더미데이터
-    public void dummiesProduct() {
-        for (int i = 1; i <= 150; i++) {
-            String makerBizNo = i + "123-45-67890";
-
-            Optional<MakerEntity> maker = makerRepository.findById(makerBizNo);
-            if (maker.isPresent()) {
-                ProductEntity product = ProductEntity.builder()
-                        .productNo((long) i)
-                        .productName("Product " + i)
-                        .productDescription("Description for Product " + i)
-                        .maker(maker.get())
-                        .productStatus(BasicStatus.PENDING)
-                        .build();
-                productRepository.save(product);
-            }
-        }
-    }
-    @Test
-    @Transactional
-    @Commit
     // 상품 파일 더미데이터
     public void dummiesProductFiles() {
         String makerBizNo = "123-45-67890";
