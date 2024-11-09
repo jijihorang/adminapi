@@ -47,7 +47,7 @@ public class MakerTests {
                     .makerStatus(BasicStatus.PENDING)
                     .build();
 
-//            maker.updateAttachFiles(attachFiles);
+            maker.updateAttachFiles(attachFiles);
             makerRepository.save(maker);
             log.info(maker.toString());
         }//end for
@@ -94,18 +94,23 @@ public class MakerTests {
                 .makerStatus(1)
                 .build();
 
-        int Status = modifyDTO.getMakerStatus();
-
-        int newState = BasicStatus.PENDING.ordinal();
+        int newStatus = modifyDTO.getMakerStatus();
 
         log.info(modifyDTO);
+
         Optional<MakerEntity> optionalMakerEntity = makerRepository.findById(modifyDTO.getMakerBizNo());
 
         MakerEntity updateMakerEntity = optionalMakerEntity.get();
-        updateMakerEntity.changeStatus(modifyDTO.getMakerStatus());
+
+        if (newStatus == 1){
+            log.info("ACCEPTED");
+            updateMakerEntity.changeStatusAccepted();
+        }
+        if (newStatus == 2){
+            log.info("REJECTED");
+            updateMakerEntity.changeStatusRejected();
+        }
+
         log.info(updateMakerEntity);
-
     }
-
-
 }

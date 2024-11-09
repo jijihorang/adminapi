@@ -62,15 +62,13 @@ public class MakerEntity extends BasicEntity {
         newFileNames.forEach(name -> attachFiles.add(new AttachFile(attachFiles.size(), name)));
     }
 
-    public void changeStatus(int newStatus){
-        if(newStatus == 0){
-            this.makerStatus = BasicStatus.PENDING;
-        }
-        if(newStatus == 1){
-            this.makerStatus = BasicStatus.ACCEPTED;
-        }
-        if(newStatus == 0){
-            this.makerStatus = BasicStatus.REJECTED;
-        }
+    public void changeStatusPending(){
+        this.makerStatus = BasicStatus.PENDING;
+    }
+    public void changeStatusAccepted() {
+        this.makerStatus = BasicStatus.ACCEPTED;
+    }
+    public void changeStatusRejected() {
+        this.makerStatus = BasicStatus.REJECTED;
     }
 }
